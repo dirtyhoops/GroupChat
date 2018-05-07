@@ -1,0 +1,66 @@
+.wrapperdivout , .userdashout{
+    width: 400px;
+    height: 600px;
+    background-color: rgb(85, 8, 8);
+    margin: auto;
+    border-radius: 10px;
+    border: 2px solid rgb(100, 97, 97);
+}
+
+.wrapperdivinside, .userdashinside {
+    width: 97%;
+    height: 98%;
+    background-color: rgb(196, 169, 169);
+    margin: 1% auto;
+    border-radius: 10px;
+    border: 2px solid rgb(197, 168, 168);
+}
+
+.textmessagesdiv {
+    padding: 2px;
+    height: 82.5%;
+    width: 99%;
+    margin: auto;
+    background-color: rgb(240, 230, 230);
+    border-radius: 10px;
+    border: 1px solid rgb(68, 65, 65);
+    overflow: scroll;
+}
+
+.texts1 {
+    width: 98%;
+    margin: auto;
+}
+
+
+#messages { 
+    list-style-type: none; 
+    margin: 0; 
+    padding: 0; 
+    font-size: 13px;
+}
+
+/* #messages li:nth-child(odd) {
+    background: rgb(247, 214, 214); 
+} */
+
+
+.userdashout, .wrapperdivout {
+    display: inline-block;
+}
+
+.userdashout {
+    vertical-align: top;
+}
+
+.userdashdiv {
+    padding: 2px;
+    height: 79.8%;
+    width: 99%;
+    margin: auto;
+    background-color: rgb(240, 230, 230);
+    border-radius: 10px;
+    border: 1px solid rgb(68, 65, 65);
+    overflow: scroll;
+}
+

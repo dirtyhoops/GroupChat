@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" crossorigin="anonymous">
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type ="text/javascript" src="/socket.io/socket.io.js"></script>
+
+    <script>
+
+        $(function () {
+            var socket = io.connect();
+            var usernameForm = $('#setUsername');
+            var usernameError = $('#usernameError');
+            var usernameBox = $('#nickname');
+            var user = $('#user');
+            $('#formmessage').submit(function(){
+                socket.emit('chat message', $('#textmessage').val());
+                $('#textmessage').val('');
+                return false;
+            });
+
+            $('#setUsername').submit(function(e){
+                e.preventDefault();
+                socket.emit('new user', $('#nickname').val(), function(data) {
+                    if(data) {
+                        $('#usernamediv').hide();
+                    }
+                });
+                $('#nickname').val('');
+            })
+
+            socket.on('chat message', function(data){
+                $('#messages').append($('<li>').text(data.nick + ": " + data.msg));
+            });
+
+            socket.on('usernames', function(data){
+                var html = '';
+                for(var i = 0; i < data.length; i++){
+                    html += data[i] + '</br>'
+                }
+                $('#user').html(html);
+            })
+        });
+
+    </script>
+
+
+  
+</head>
+<body>
+        <div class="container-fluid">
+            <div class="userdashout">
+                <div class="userdashinside">
+                    <div class="userdashdiv">
+                        <p>Online users: </p>
+                        <div id="user">
+
+                        </div>
+                        <p id ="usernameError"></p>
+                    </div>
+                    <div id="usernamediv">
+                        <form id="setUsername" action="">
+                            <div class="form-group">
+                                <p>Enter a username:</p>
+                                <input type="text" class="form-control" id="nickname"></input>
+                                <button class="btn btn-dark btn-block">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="wrapperdivout">
+                <div class="wrapperdivinside">
+                    <div class="textmessagesdiv">
+                        <div class="texts1">
+                            <ul id="messages"></ul>
+                        </div>
+                    </div>
+                    <div class='writetextdiv'>
+                        <form id = "formmessage" action="">
+                            <div class="form-group">
+                                <textarea class="form-control" id="textmessage" rows="2"></textarea>  
+                                <button class="btn btn-dark btn-block">Send Message</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>  <!-- end of container -->
+</body>
+</html>
+
